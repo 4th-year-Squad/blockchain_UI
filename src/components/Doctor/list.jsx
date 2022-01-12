@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import { List, message, Avatar, Button, Skeleton, Row, Col, Card } from "antd";
 import VirtualList from "rc-virtual-list";
 const { Meta } = Card;
-import CreateHistory from "./modal.jsx";
 
 const fakeDataUrl =
   "https://randomuser.me/api/?results=20&inc=name,gender,email,nat,picture&noinfo";
 const ContainerHeight = 700;
 
-const PatientList = () => {
+const DoctorsList = () => {
   const [data, setData] = useState([]);
   const [selectedPatient, setselectedPatient] = useState(null);
   const [isModalOpen, setModal] = useState(false);
@@ -38,7 +37,7 @@ const PatientList = () => {
         <Col span={14}>
           <div style={{ textAlign: "center" }}>
             <h1>
-              <b>List of Patients</b>
+              <b>List of Doctors</b>
             </h1>
           </div>
           <List>
@@ -47,12 +46,12 @@ const PatientList = () => {
               height={ContainerHeight}
               itemHeight={47}
               itemKey="email"
-              
               onScroll={onScroll}
             >
               {(item) => (
                 <List.Item key={item.email}>
                   <List.Item.Meta
+                    s
                     avatar={<Avatar src={item.picture.large} />}
                     title={<a href="https://ant.design">{item.name.last}</a>}
                     description={item.email}
@@ -95,10 +94,7 @@ const PatientList = () => {
               />
               <Meta title="Doctors" description="This is the description" />
               <Meta title="" description="This is the description" />
-              <Button
-                style={{ padding: 5, margin: "20px" }}
-                onClick={() => setModal(true)}
-              >
+              <Button style={{ padding: 5, margin: "20px" }}>
                 Add Patient History
               </Button>
             </Card>
@@ -109,12 +105,7 @@ const PatientList = () => {
           )}
         </Col>
       </Row>
-      <CreateHistory
-        isOpen={isModalOpen}
-        onClose={() => setModal(false)}
-        patient={selectedPatient}
-      />
     </>
   );
 };
-export default PatientList;
+export default DoctorsList;

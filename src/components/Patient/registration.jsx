@@ -1,4 +1,4 @@
-import { Form, Input, Button, Select, Row, Col, Image, DatePicker } from "antd";
+import { Form, Input, Button, Radio, Row, Col, Image, DatePicker } from "antd";
 import imageRegister from "../../assets/images/register.png";
 
 const RegisterPatient = () => {
@@ -10,6 +10,12 @@ const RegisterPatient = () => {
     console.log("Failed:", errorInfo);
   };
 
+  const [value, setValue] = React.useState(1);
+
+  const onChange = (e) => {
+    console.log("radio checked", e.target.value);
+    setValue(e.target.value);
+  };
   return (
     <>
       <Row type="flex" align="middle">
@@ -80,16 +86,16 @@ const RegisterPatient = () => {
                 <DatePicker />
               </Form.Item>
               <Form.Item label="Blood type">
-                <Select>
-                  <Select.Option value="demo">A+</Select.Option>
-                  <Select.Option value="demo">A-</Select.Option>
-                  <Select.Option value="demo">B+</Select.Option>
-                  <Select.Option value="demo">B-</Select.Option>
-                  <Select.Option value="demo">O+</Select.Option>
-                  <Select.Option value="demo">O-</Select.Option>
-                  <Select.Option value="demo">AB+</Select.Option>
-                  <Select.Option value="demo">AB-</Select.Option>
-                </Select>
+                <Radio.Group onChange={onChange} value={value}>
+                  <Radio value={1}>A+</Radio>
+                  <Radio value={2}>A-</Radio>
+                  <Radio value={3}>B+</Radio>
+                  <Radio value={4}>B-</Radio>
+                  <Radio value={5}>AB+</Radio>
+                  <Radio value={6}>AB-</Radio>
+                  <Radio value={7}>O+</Radio>
+                  <Radio value={8}>O-</Radio>
+                </Radio.Group>
               </Form.Item>
 
               <Form.Item wrapperCol={{ offset: 8, span: 16 }}>

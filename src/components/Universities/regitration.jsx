@@ -1,8 +1,7 @@
-import { Form, Input, Button, Checkbox, Row, Col, DatePicker } from "antd";
-import imageRegister from "../../assets/images/register.png";
-import "../Doctor/registerDoctor.css";
+import { Form, Input, Button, Select, Row, Col, Image } from "antd";
+import imageRegister from "../../assets/images/univ.png";
 
-const RegisterDoctor = () => {
+const RegisterUniversity = () => {
   const onFinish = (values) => {
     console.log("Success:", values);
   };
@@ -10,11 +9,15 @@ const RegisterDoctor = () => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+  const { Option } = Select;
 
+  function handleChange(value) {
+    console.log(`selected ${value}`);
+  }
   return (
     <>
-      <Row type="flex" align="middle">
-        <Col span={12}>
+      <Row align="middle">
+        <Col flex={12}>
           <img width={800} src={imageRegister} />
         </Col>
 
@@ -29,8 +32,6 @@ const RegisterDoctor = () => {
             <Form
               className="registration_form"
               name="basic"
-              labelCol={{ span: 8 }}
-              wrapperCol={{ span: 16 }}
               initialValues={{ remember: true }}
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
@@ -43,52 +44,50 @@ const RegisterDoctor = () => {
                 }}
               >
                 <h2>
-                  <b>Doctor Registration</b>
+                  <b>University Registration</b>
                 </h2>
               </div>
               <Form.Item
-                label="Username"
-                name="username"
-                rules={[
-                  { required: true, message: "Please input a username!" },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                label="Phone Number"
-                name="PhoneNumber"
+                label="Name of University"
+                name="NameofUniversity"
                 rules={[
                   {
                     required: true,
-                    message: "Please input your a number!",
+                    message: "Please input name of University!",
                   },
                 ]}
               >
                 <Input />
               </Form.Item>
-              <Form.Item label="Date of Birth">
-                <DatePicker />
-              </Form.Item>
               <Form.Item
-                label=" speciality"
-                name="Speciality"
+                label="President "
+                name="president"
                 rules={[
                   {
                     required: true,
-                    message: "Please input a speciality!",
+                    message: "Please enter your president !",
                   },
                 ]}
               >
                 <Input />
               </Form.Item>
-
-              <Form.Item
-                label="Password"
-                name="password"
-                rules={[{ required: true, message: "Please input  password!" }]}
-              >
-                <Input.Password />
+              <Form.Item label="Region">
+                <Select
+                  defaultValue="Addis Ababa"
+                  style={{ width: 120 }}
+                  onChange={handleChange}
+                >
+                  <Option value="Addis Ababa">Addis Ababa</Option>
+                  <Option value="Oromia">Oromia</Option>
+                  <Option value="Amhara">Amhara</Option>
+                  <Option value="Tigray">Tigray</Option>
+                  <Option value="Sidama">Sidama</Option>
+                  <Option value="Afar">Afar</Option>
+                  <Option value="Benshangul">Benshangul</Option>
+                  <Option value="Gambela">Gambela</Option>
+                  <Option value="South Nations">South Nations</Option>
+                  <Option value="Somali">Somali</Option>
+                </Select>
               </Form.Item>
 
               <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
@@ -104,4 +103,4 @@ const RegisterDoctor = () => {
   );
 };
 
-export default RegisterDoctor;
+export default RegisterUniversity;

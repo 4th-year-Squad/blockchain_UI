@@ -8,6 +8,12 @@ import { Switch, Route } from "react-router-dom";
 import { Layout } from "antd";
 import "./css/app.css";
 import PatientList from "./components/Patient/list.jsx";
+import RegisterUniversity from "./components/Universities/regitration.jsx";
+import patientLanding from "./pages/Patient/landing.jsx";
+import DoctorLanding from "./pages/Doctors/landing.jsx";
+import DoctorsList from "./components/Doctor/list.jsx";
+import MOHLanding from "./pages/MOH/landing.jsx";
+import UniversityLanding from "./pages/Universities/landing.jsx";
 
 const { Content } = Layout;
 
@@ -17,31 +23,29 @@ const App = () => {
       <Layout className="layout">
         <Navbar />
 
-        <Content style={{ padding: "0 50px" }}>
+        <Content
+          style={{
+            height: "100%",
+            padding: "50px 50px 0px 50px",
+            overflowX: "hidden",
+          }}
+        >
           <Switch>
-            <Route path="/RegisterDoctor">
-              <div className="site-layout-content">
-                <RegisterDoctor />
-              </div>
-            </Route>
-            <Route path="/RegisterPatient">
-              <div className="site-layout-content">
-                <RegisterPatient />
-              </div>
-            </Route>
-            <Route path="/Login">
-              <div className="site-layout-content">
-                <Login />
-              </div>
-            </Route>
-            <Route path="/PatientList">
-              <div className="site-layout-content">
-                <PatientList />
-              </div>
-            </Route>
+            <Route path="/RegisterDoctor" component={RegisterDoctor}></Route>
+            <Route path="/RegisterPatient" component={RegisterPatient}></Route>
+            <Route path="/Login" component={Login}></Route>
+            <Route path="/PatientList" component={PatientList}></Route>
+            <Route path="/DoctorsList" component={DoctorsList}></Route>
+            <Route
+              path="/RegisterUniversities"
+              component={RegisterUniversity}
+            ></Route>
+            <Route path="/patient" component={patientLanding}></Route>
+            <Route path="/doctor" component={DoctorLanding}></Route>
+            <Route path="/moh" component={MOHLanding}></Route>
+            <Route path="/univesities" component={UniversityLanding}></Route>
           </Switch>
         </Content>
-        <FooterNew />
       </Layout>
     </>
   );

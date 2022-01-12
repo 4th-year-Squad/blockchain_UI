@@ -1,17 +1,32 @@
-import { Layout, Menu } from "antd";
-
-const { Header } = Layout;
+import { Layout, Menu, Image, Row, Col } from "antd";
+import imageSrc from "../../../assets/images/logo.png";
+const { Header, theme } = Layout;
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <Header>
-      <div className="logo" />
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
-        {new Array(15).fill(null).map((_, index) => {
-          const key = index + 1;
-          return <Menu.Item key={key}>{`nav ${key}`}</Menu.Item>;
-        })}
-      </Menu>
+    <Header style={{ backgroundColor: "white" }}>
+      <Row>
+        <Col span={10}>
+          <img src={imageSrc} width={200} />
+        </Col>
+        <Col span={14}>
+          <Menu theme="light" mode="horizontal" defaultSelectedKeys={["2"]}>
+            <Menu.Item style={{}} key={0}>
+              <Link to="/patient"> Patients</Link>
+            </Menu.Item>
+            <Menu.Item style={{}} key={1}>
+              <Link to="/doctor"> Doctors</Link>
+            </Menu.Item>
+            <Menu.Item style={{}} key={2}>
+              <Link to="/moh"> MOH</Link>
+            </Menu.Item>
+            <Menu.Item style={{}} key={3}>
+              <Link to="/univesities">Universities</Link>
+            </Menu.Item>
+          </Menu>
+        </Col>
+      </Row>
     </Header>
   );
 };
