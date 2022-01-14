@@ -12,10 +12,10 @@ const accounts = new Promise(async (resolve, reject) => {
   }
 });
 
-const health = new web3.eth.Contract(ABI, ADDRESS);
+const medify = new web3.eth.Contract(ABI, ADDRESS);
 
 export default {
   web3,
   accounts,
-  health,
+  medify,
 };

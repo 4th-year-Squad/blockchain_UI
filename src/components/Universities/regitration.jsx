@@ -1,9 +1,36 @@
-import { Form, Input, Button, Select, Row, Col, Image } from "antd";
+import { Form, Input, Button, Select, Row, Col, message } from "antd";
 import imageRegister from "../../assets/images/univ.png";
+import { Web3Context } from "../Web3Context.js";
+import { useEffect, useState, useContext } from "react";
+import { Redirect } from "react-router";
+import { async } from "regenerator-runtime";
 
 const RegisterUniversity = () => {
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const web3 = useContext(Web3Context);
+  const [selected, setselected] = useState("Addis Ababa");
+  const [loading, setLoading] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+
+  function handleChange(selectedValue) {
+    setselected(selectedValue);
+    console.log(`selected ${selectedValue}`);
+  }
+  const onFinish = async (values) => {
+    setLoading(true);
+    const web3Context = await web3();
+    console.log(web3Context);
+    console.log(Object.values(values), selected);
+    const account = await web3Context.accounts;
+    const res = await web3Context.medify.methods
+      .setUniversities(values._uId, values._name, values._president, selected)
+      .send({ from: account[0] })
+      .once("receipt", (receipt) => {
+        setLoading(false);
+        message.success(
+          `University Regisetered Successfully! Transaction hash: ${receipt.transactionHash}`
+        );
+        setRedirect("/moh");
+      });
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -11,8 +38,8 @@ const RegisterUniversity = () => {
   };
   const { Option } = Select;
 
-  function handleChange(value) {
-    console.log(`selected ${value}`);
+  if (redirect) {
+    return <Redirect exact to="/moh" />;
   }
   return (
     <>
@@ -48,8 +75,20 @@ const RegisterUniversity = () => {
                 </h2>
               </div>
               <Form.Item
+                label="University ID: "
+                name="_uId"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter university Id !",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
                 label="Name of University"
-                name="NameofUniversity"
+                name="_name"
                 rules={[
                   {
                     required: true,
@@ -61,7 +100,7 @@ const RegisterUniversity = () => {
               </Form.Item>
               <Form.Item
                 label="President "
-                name="president"
+                name="_president"
                 rules={[
                   {
                     required: true,

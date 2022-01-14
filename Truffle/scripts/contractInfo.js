@@ -5,23 +5,25 @@ var fs = require("fs");
 //   console.log("✅ Your contract's ABI was copied to the frontend");
 // });
 
-let rawData = fs.readFileSync("build/contracts/Migrations.json");
+let rawData = fs.readFileSync("build/contracts/MedicalChain.json");
 let data = JSON.parse(rawData);
 
 console.log(data["abi"]);
-console.log(data["networks"]['5777']['address']);
+console.log(data["networks"]["5777"]["address"]);
 
 let writtenData = {
-  abi:data["abi"],
-  address:data["networks"]['5777']['address']
-}
+  abi: data["abi"],
+  address: data["networks"]["5777"]["address"],
+};
 
-let content = `export const ADDRESS = ${JSON.stringify(writtenData.address)}; export const ABI = ${JSON.stringify(writtenData.abi)}`;
+let content = `export const ADDRESS = ${JSON.stringify(
+  writtenData.address
+)}; export const ABI = ${JSON.stringify(writtenData.abi)}`;
 
 try {
-  fs.writeFileSync('../src/contracts/contract.js', content)
+  fs.writeFileSync("../src/contracts/contract.js", content);
   //file written successfully
   console.log("✅ Your contract's ABI was copied to the frontend");
 } catch (err) {
-  console.error(err)
+  console.error(err);
 }

@@ -1,45 +1,31 @@
-import { Modal, Form, Input, Button, Typography, message, Spin } from "antd";
+import { useEffect, useState, useContext } from "react";
+import { Modal, Form, Input, Button, Spin } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { Web3Context } from "../Web3Context.js";
-import { useEffect, useState, useContext } from "react";
-import { Redirect } from "react-router";
 
-const CreateHistory = ({ isOpen, onClose, patient, handleSubmit }) => {
+const AddHistory = ({ isOpen, onClose, patient, handleSubmit }) => {
   const web3 = useContext(Web3Context);
   const [loading, setLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
+  const [currentPatient, setCurrentPatient] = useState();
 
-  if (loading) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Spin tip={"Loading"} />
-      </div>
-    );
-  }
   return (
     <>
       <Modal
-        title="Create Parient History"
+        title="Add Parient History"
         visible={isOpen}
         onOk={handleSubmit}
-        onCancel={onClose}
         footer={[]}
       >
         <Form initialValues={{ ...patient }} onFinish={handleSubmit}>
-          <Form.Item name="pa_Name" rules={[]}>
+          <Form.Item name="_paName">
             <Input
               size="large"
               placeholder={`${patient ? patient.pa_Name : ""}`}
               disabled
             />
           </Form.Item>
-          <Form.Item name="pa_Id" rules={[]}>
+          <Form.Item name="_paId" rules={[]}>
             <Input
               size="large"
               placeholder={`${patient ? patient.pa_Id : ""}`}
@@ -88,4 +74,4 @@ const CreateHistory = ({ isOpen, onClose, patient, handleSubmit }) => {
   );
 };
 
-export default CreateHistory;
+export default AddHistory;

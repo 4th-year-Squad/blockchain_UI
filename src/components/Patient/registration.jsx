@@ -1,21 +1,62 @@
-import { Form, Input, Button, Radio, Row, Col, Image, DatePicker } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  Radio,
+  Row,
+  Col,
+  Image,
+  DatePicker,
+  message,
+} from "antd";
 import imageRegister from "../../assets/images/register.png";
+import { Web3Context } from "../Web3Context.js";
+import { useEffect, useState, useContext } from "react";
+import { Redirect } from "react-router";
 
 const RegisterPatient = () => {
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const web3 = useContext(Web3Context);
+  const [bloodType, setBloodType] = useState("A+");
+  const [loading, setLoading] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+
+  const onFinish = async (values) => {
+    setLoading(true);
+    const birthDate = new Date(values._paDateOfBirth).getTime();
+    const web3Context = await web3();
+    console.log(web3Context);
+    console.log(Object.values(values));
+    const account = await web3Context.accounts;
+    const res = await web3Context.medify.methods
+      .setPatientDetails(
+        account[0],
+        values._paName,
+        values._paPhoneNumber,
+        bloodType,
+        birthDate
+      )
+      .send({ from: account[0] })
+      .once("receipt", (receipt) => {
+        setLoading(false);
+        message.success(
+          `Patient Regisetered Successfully! Transaction hash: ${receipt.transactionHash}`
+        );
+        setRedirect("/");
+      });
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
-  const [value, setValue] = React.useState(1);
-
   const onChange = (e) => {
     console.log("radio checked", e.target.value);
-    setValue(e.target.value);
+    setBloodType(e.target.value);
   };
+
+  if (redirect) {
+    return <Redirect exact to="/" />;
+  }
   return (
     <>
       <Row type="flex" align="middle">
@@ -53,7 +94,7 @@ const RegisterPatient = () => {
               </div>
               <Form.Item
                 label="Username"
-                name="username"
+                name="_paName"
                 rules={[
                   { required: true, message: "Please input your username!" },
                 ]}
@@ -62,7 +103,7 @@ const RegisterPatient = () => {
               </Form.Item>
               <Form.Item
                 label="Phone Number"
-                name="PhoneNumber"
+                name="_paPhoneNumber"
                 rules={[
                   {
                     required: true,
@@ -73,33 +114,24 @@ const RegisterPatient = () => {
                 <Input />
               </Form.Item>
 
-              <Form.Item
-                label="Password"
-                name="password"
-                rules={[
-                  { required: true, message: "Please input your password!" },
-                ]}
-              >
-                <Input.Password />
-              </Form.Item>
-              <Form.Item label="Date of Birth">
+              <Form.Item label="Date of Birth" name="_paDateOfBirth">
                 <DatePicker />
               </Form.Item>
-              <Form.Item label="Blood type">
-                <Radio.Group onChange={onChange} value={value}>
-                  <Radio value={1}>A+</Radio>
-                  <Radio value={2}>A-</Radio>
-                  <Radio value={3}>B+</Radio>
-                  <Radio value={4}>B-</Radio>
-                  <Radio value={5}>AB+</Radio>
-                  <Radio value={6}>AB-</Radio>
-                  <Radio value={7}>O+</Radio>
-                  <Radio value={8}>O-</Radio>
+              <Form.Item label="Blood type" name="_paBloodType">
+                <Radio.Group onChange={onChange} value={bloodType}>
+                  <Radio value={"A+"}>A+</Radio>
+                  <Radio value={"A-"}>A-</Radio>
+                  <Radio value={"B+"}>B+</Radio>
+                  <Radio value={"B-"}>B-</Radio>
+                  <Radio value={"AB+"}>AB+</Radio>
+                  <Radio value={"AB-"}>AB-</Radio>
+                  <Radio value={"O+"}>O+</Radio>
+                  <Radio value={"O-"}>O-</Radio>
                 </Radio.Group>
               </Form.Item>
 
               <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" loading={loading}>
                   Submit
                 </Button>
               </Form.Item>

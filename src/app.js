@@ -14,6 +14,7 @@ import DoctorLanding from "./pages/Doctors/landing.jsx";
 import DoctorsList from "./components/Doctor/list.jsx";
 import MOHLanding from "./pages/MOH/landing.jsx";
 import UniversityLanding from "./pages/Universities/landing.jsx";
+import Home from "./pages/home/landing.jsx";
 
 const { Content } = Layout;
 
@@ -40,7 +41,8 @@ const App = () => {
               path="/RegisterUniversities"
               component={RegisterUniversity}
             ></Route>
-            <Route path="/patient" component={patientLanding}></Route>
+            <Route exact path="/patient" component={patientLanding}></Route>
+            <Route exact path="/" component={Home}></Route>
             <Route path="/doctor" component={DoctorLanding}></Route>
             <Route path="/moh" component={MOHLanding}></Route>
             <Route path="/univesities" component={UniversityLanding}></Route>

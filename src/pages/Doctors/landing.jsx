@@ -105,11 +105,12 @@ const DoctorLanding = () => {
               <Col>
                 <Card>
                   <div>
-                    <UserAddOutlined  style={{fontSize:30}} />
+                    <UserAddOutlined style={{ fontSize: 30 }} />
                   </div>
                   <Link to="/RegisterPatient">
-                  
-                    <Button type="primary"> Add Patient</Button>
+                    <Button shape="round" type="primary">
+                      Add Patient
+                    </Button>
                   </Link>
                 </Card>
               </Col>

@@ -8,10 +8,12 @@ import { BrowserRouter } from "react-router-dom";
 import Web3ContextProvider from "./components/Web3Context";
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Web3ContextProvider>
-      <App />
-    </Web3ContextProvider>
-  </BrowserRouter>,
+  <React.StrictMode>
+    <BrowserRouter>
+      <Web3ContextProvider>
+        <App />
+      </Web3ContextProvider>
+    </BrowserRouter>
+  </React.StrictMode>,
   document.getElementById("root")
 );

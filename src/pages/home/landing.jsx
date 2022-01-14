@@ -9,10 +9,8 @@ import sp1 from "../../assets/images/speciality/specialities-01.png";
 const { Meta } = Card;
 import "../Patient/style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoffee } from "@fortawesome/free-solid-svg-icons";
-import DoctorsList from "../../components/Doctor/list.jsx";
 
-const patientLanding = () => {
+const Home = () => {
   return (
     <>
       <div>
@@ -135,14 +133,9 @@ const patientLanding = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
-            <DoctorsList />
-          </Col>
-        </Row>
       </div>
       <FooterNew />
     </>
   );
 };
-export default patientLanding;
+export default Home;
