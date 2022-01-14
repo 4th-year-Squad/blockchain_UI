@@ -4,7 +4,7 @@ import {
   message,
   Avatar,
   Button,
-  Skeleton,
+  Divider,
   Row,
   Col,
   Card,
@@ -21,7 +21,7 @@ const DoctorsList = () => {
   const web3 = useContext(Web3Context);
   const [loading, setloading] = useState(false);
   const [data, setData] = useState([]);
-  const [selectedPatient, setselectedPatient] = useState(null);
+  const [selectedDoctor, setselectedDoctor] = useState(null);
   const [isModalOpen, setModal] = useState(false);
 
   const appendData = async () => {
@@ -59,7 +59,7 @@ const DoctorsList = () => {
   return (
     <>
       <Row>
-        <Col span={18}>
+        <Col span={16}>
           <div style={{ textAlign: "center" }}>
             <h1>
               <b>List of Doctors</b>
@@ -86,45 +86,60 @@ const DoctorsList = () => {
                 onScroll={onScroll}
               >
                 {(item) => (
-                  <List.Item key={item.dr_Id}>
-                    <List.Item.Meta
-                      // avatar={<Avatar src={item.picture.large} />}
-                      title={<a href="https://ant.design">{item.d_Name}</a>}
-                      description={item.d_speciality}
-                    />
+                  <>
+                    <List.Item key={item.dr_Id}>
+                      <List.Item.Meta
+                        // avatar={<Avatar src={item.picture.large} />}
+                        title={<a href="https://ant.design">{item.d_Name}</a>}
+                        description={item.d_speciality}
+                      />
 
-                    <div
-                      style={
-                        item.state
-                          ? {
-                              padding: 100,
-                              fontWeight: "bold",
-                              color: "darkgreen",
-                            }
-                          : { padding: 100, fontWeight: "bold", color: "red" }
-                      }
-                    >
-                      {item.state ? "verified " : "Not-Verified "}
-                    </div>
-                    <Button
-                      shape="round"
-                      type="primary"
-                      onClick={() => {
-                        setselectedPatient(item);
-                      }}
-                    >
-                      Detail
-                    </Button>
-                  </List.Item>
+                      <div
+                        style={
+                          item.state
+                            ? {
+                                padding: 6,
+                                marginRight: "100px",
+                                fontWeight: "bold",
+                                color: "darkgreen",
+                                borderColor: "green",
+                                border: "1px solid",
+                                borderRadius: 30,
+                              }
+                            : {
+                                padding: 6,
+                                marginRight: "100px",
+                                fontWeight: "bold",
+                                color: "red",
+                                borderColor: "pink",
+                                border: "1px solid",
+                                borderRadius: 30,
+                              }
+                        }
+                      >
+                        {item.state ? "verified " : "Not-Verified "}
+                      </div>
+                      <Button
+                        shape="round"
+                        type="primary"
+                        onClick={() => {
+                          setselectedDoctor(item);
+                        }}
+                      >
+                        Detail
+                      </Button>
+                    </List.Item>
+                    <Divider />
+                  </>
                 )}
               </VirtualList>
             )}
           </List>
         </Col>
         <Col span={6}>
-          {selectedPatient ? (
+          {selectedDoctor ? (
             <Card
-              style={{ width: 600, marginLeft: 200 }}
+              style={{ width: 500, margin: 100 }}
               cover={
                 <img
                   alt="example"
@@ -132,29 +147,40 @@ const DoctorsList = () => {
                 />
               }
             >
-              <Meta
-                title="Doctor's Name"
-                description={`${selectedPatient.d_Name}`}
-              />
-              <Meta
-                title="Date of Birth"
-                description={`${selectedPatient.d_date_of_birth}`}
-              />
-              <Meta
-                title="University name"
-                description={`${selectedPatient.university.name}`}
-              />
-              <Meta
-                title="Phone Number"
-                description={`${selectedPatient.d_phone_Number}`}
-              />
+              <div style={{ fontSize: 18 }}>
+                <span style={{ color: "#09E5AB" }}>Doctor's Name: </span>
+                <span>{`${selectedDoctor.d_Name}`}</span>
+              </div>
+              <div style={{ fontSize: 18 }}>
+                <span style={{ color: "#09E5AB" }}>Date of Birth: </span>
+                <span>{`${selectedDoctor.d_date_of_birth}`}</span>
+              </div>
+              <div style={{ fontSize: 18 }}>
+                <span style={{ color: "#09E5AB" }}>University name: </span>
+                <span>{`${selectedDoctor.university.name}`}</span>
+              </div>
+              <div style={{ fontSize: 18 }}>
+                <span style={{ color: "#09E5AB" }}>Phone Number: </span>
+                <span>{`${selectedDoctor.d_phone_Number}`}</span>
+              </div>
             </Card>
           ) : (
-            <Card style={{ width: 600, marginLeft: 200 }}>
-              <Meta title="Card title" description="Select Patient" />
+            <Card
+              style={{
+                width: 500,
+                marginLeft: 100,
+                borderColor: "pink",
+                borderRadius: "25px",
+              }}
+            >
+              <Meta
+                title="No Doctor Selected"
+                description="View Detail of one patient"
+              />
             </Card>
           )}
         </Col>
+        <Col span={16}></Col>
       </Row>
     </>
   );

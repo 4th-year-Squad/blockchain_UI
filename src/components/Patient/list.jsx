@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { List, message, Avatar, Button, Spin, Row, Col, Card } from "antd";
+import { List, message, Divider, Button, Spin, Row, Col, Card } from "antd";
 import VirtualList from "rc-virtual-list";
 import AddHistory from "./history.jsx";
 import { Web3Context } from "../Web3Context";
 import { Redirect } from "react-router";
+import { CheckCircleTwoTone } from "@ant-design/icons";
+import profile from "../../assets/images/profile.png";
 const { Meta } = Card;
 
 const fakeDataUrl =
@@ -93,7 +95,7 @@ const PatientList = () => {
     <>
       <Row>
         <Col span={14}>
-          <div style={{ textAlign: "center" }}>
+          <div style={{ textAlign: "center", fontSize: 25 }}>
             <h1>
               <b>List of Patients</b>
             </h1>
@@ -118,22 +120,25 @@ const PatientList = () => {
                 onScroll={onScroll}
               >
                 {(item) => (
-                  <List.Item key={item._paId}>
-                    <List.Item.Meta
-                      // avatar={<Avatar src={item.picture.large} />}
-                      title={<a href="https://ant.design">{item._paName}</a>}
-                      description={item._paPhoneNumber}
-                    />
-                    <Button
-                      shape="round"
-                      type="primary"
-                      onClick={() => {
-                        setselectedPatient(item);
-                      }}
-                    >
-                      Detail
-                    </Button>
-                  </List.Item>
+                  <>
+                    <List.Item key={item._paId}>
+                      <List.Item.Meta
+                        // avatar={<Avatar src={item.picture.large} />}
+                        title={<a href="https://ant.design">{item._paName}</a>}
+                        description={item._paPhoneNumber}
+                      />
+                      <Button
+                        shape="round"
+                        onClick={() => {
+                          setselectedPatient(item);
+                        }}
+                        style={{ borderColor: "#2DE0FC" }}
+                      >
+                        Detail
+                      </Button>
+                    </List.Item>
+                    <Divider />
+                  </>
                 )}
               </VirtualList>
             )}
@@ -143,45 +148,54 @@ const PatientList = () => {
           {selectedPatient ? (
             <>
               <Card
-                style={{ width: 500, marginLeft: 200 }}
-                cover={
-                  <img
-                    alt="example"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                  />
-                }
+                style={{ width: 500, marginLeft: 100 }}
+                cover={<img width="100px" alt="example" src={profile} />}
               >
-                <Meta
-                  title="Patient's Name"
-                  description={`${selectedPatient._paName}`}
-                />
-                <Meta
-                  title="Date of Birth"
-                  description={`${selectedPatient._paDateOfBirth}`}
-                />
-                <Meta
-                  title="BloodType"
-                  description={`${selectedPatient.pa_blood_type}`}
-                />
-                <Meta
-                  title="Phone Number"
-                  description={`${selectedPatient._paPhoneNumber}`}
-                />
-                <Meta
-                  title="Symptoms"
-                  description={selectedPatient._paRecords.map((e) => (
-                    <div>{`${e.split("/")[0]}`} </div>
-                  ))}
-                />
-                <Meta
-                  title="Prescriptions"
-                  description={selectedPatient._paRecords.map((e) => (
-                    <div>{`${e.split("/")[1]}`} </div>
-                  ))}
-                />
+                <div style={{ fontSize: 18 }}>
+                  <span style={{ color: "#09E5AB" }}>Patient's Name: </span>
+                  <span>{`${selectedPatient._paName}`}</span>
+                </div>
+                <div style={{ fontSize: 18 }}>
+                  <span style={{ color: "#09E5AB" }}>Date of Birth: </span>
+                  <span>{`${selectedPatient._paDateOfBirth}`}</span>
+                </div>
+                <div style={{ fontSize: 18 }}>
+                  <span style={{ color: "#09E5AB" }}>Blood Type: </span>
+                  <span
+                    style={{ color: "red" }}
+                  >{`${selectedPatient._paBloodType}`}</span>
+                </div>
+                <div style={{ fontSize: 18 }}>
+                  <span style={{ color: "#09E5AB" }}>Phone Number: </span>
+                  <span>{`${selectedPatient._paPhoneNumber}`}</span>
+                </div>
+
+                <div style={{ fontSize: 18 }}>
+                  <span style={{ color: "#09E5AB" }}>Symptoms</span>
+                  <span>
+                    {selectedPatient._paRecords.map((e) => (
+                      <div style={{ borderColor: "#2DE0FC" }}>
+                        {`${e.split("/")[0]}`}
+                      </div>
+                    ))}
+                  </span>
+                </div>
+
+                <div style={{ fontSize: 18 }}>
+                  <span style={{ color: "#09E5AB" }}>Prescriptions</span>
+                  <span>
+                    {selectedPatient._paRecords.map((e) => (
+                      <div style={{ borderColor: "#2DE0FC" }}>
+                        <CheckCircleTwoTone twoToneColor="#52c41a" />
+                        {`${e.split("/")[1]}`}
+                      </div>
+                    ))}
+                  </span>
+                </div>
+
                 <Button
                   shape="round"
-                  style={{ padding: 5, margin: "20px" }}
+                  style={{ padding: 5, margin: "20px", borderColor: "#2DE0FC" }}
                   onClick={() => setModal(true)}
                 >
                   Add Patient History
@@ -195,8 +209,18 @@ const PatientList = () => {
               />
             </>
           ) : (
-            <Card style={{ width: 500, marginLeft: 200 }}>
-              <Meta title="Card title" description="Select Patient" />
+            <Card
+              style={{
+                width: 500,
+                marginLeft: 100,
+                borderColor: "pink",
+                borderRadius: "25px",
+              }}
+            >
+              <Meta
+                title="No Patient Selected"
+                description="View detail of one patient"
+              />
             </Card>
           )}
         </Col>

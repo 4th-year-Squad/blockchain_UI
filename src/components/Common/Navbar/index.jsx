@@ -9,8 +9,8 @@ const Navbar = () => {
   const [cookies, setCookie] = useCookies();
 
   return (
-    <Header style={{ backgroundColor: "white" }}>
-      <Row>
+    <Header style={{ backgroundColor: "white", height: 120 }}>
+      <Row style={{ paddingTop: "50px" }}>
         <Col span={10}>
           <img src={imageSrc} width={200} />
         </Col>
@@ -42,7 +42,9 @@ const Navbar = () => {
           <Menu theme="light" mode="horizontal" defaultSelectedKeys={["2"]}>
             <Menu.Item style={{}} key={4}>
               <Link to="/RegisterPatient">
-                <Button>Register as a patient</Button>
+                <Button shape="round" style={{ borderColor: "#2BF1C3" }}>
+                  Register as a patient
+                </Button>
               </Link>
             </Menu.Item>
           </Menu>

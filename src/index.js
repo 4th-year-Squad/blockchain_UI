@@ -6,6 +6,7 @@ import "antd/dist/antd.css";
 // import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import Web3ContextProvider from "./components/Web3Context";
+import "../src/app.css";
 
 ReactDOM.render(
   <React.StrictMode>

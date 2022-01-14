@@ -20,7 +20,11 @@ const UniversityLanding = () => {
         <img src={HeroImg} alt="" />
       </div>
       <Link to="/RegisterDoctor">
-        <Button type="primary">Add Doctors</Button>
+        <div style={{ fontSize: 30 }}>
+          <Button shape="round"  size="large" type="primary">
+            Add Doctors
+          </Button>
+        </div>
       </Link>
       <div style={{ textAlign: "center", padding: 100 }}>
         <h1>What are you looking for? </h1>
@@ -41,8 +45,8 @@ const UniversityLanding = () => {
                 cover={<img alt="example" src={doc1} />}
               >
                 <Meta
-                  title="Europe Street beat"
-                  description="www.instagram.com"
+                  title="Doctors"
+                  description="Directly and specialists verified by MOH."
                 />
               </Card>
             </div>
@@ -55,8 +59,8 @@ const UniversityLanding = () => {
                 cover={<img alt="example" src={doc2} />}
               >
                 <Meta
-                  title="Europe Street beat"
-                  description="www.instagram.com"
+                  title="Prescriptions"
+                  description="Directly given by doctors."
                 />
               </Card>
             </div>
@@ -69,7 +73,7 @@ const UniversityLanding = () => {
                 cover={<img alt="example" src={doc3} />}
               >
                 <Meta
-                  title="Europe Street beat"
+                  title="University to be part of this system"
                   description="www.instagram.com"
                 />
               </Card>
@@ -79,7 +83,7 @@ const UniversityLanding = () => {
       </div>
 
       <div className="specialities-slider slider">
-        <Row>
+        <Row style={{ marginTop: "100px" }}>
           <Col offset={4}></Col>
           <Col span={4}>
             <div className="speicality-item text-center">

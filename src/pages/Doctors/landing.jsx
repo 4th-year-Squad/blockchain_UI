@@ -21,7 +21,7 @@ const { Header, Footer, Sider, Content } = Layout;
 const DoctorLanding = () => {
   return (
     <>
-      <Layout>
+      <Layout style={{ margin: "50px 50px 0px 50px" }}>
         <Sider width={500} style={{ backgroundColor: "#F0F2F5" }}>
           <Card
             style={{ width: 500 }}
@@ -49,7 +49,14 @@ const DoctorLanding = () => {
             <Row>
               <Col offset={1}></Col>
               <Col span={4}>
-                <Card>
+                <Card
+                  style={{
+                    backgroundColor: "#FBFAF0",
+                    borderRadius: "20px",
+                    overflow: "hidden",
+                    borderColor: "yellow",
+                  }}
+                >
                   <div className="circle-bar circle-bar1">
                     <div className="circle-graph1" data-percent="75">
                       <img src={img1} className="img-fluid" alt="patient" />
@@ -67,7 +74,14 @@ const DoctorLanding = () => {
               </Col>
               <Col offset={2}></Col>
               <Col span={4}>
-                <Card>
+                <Card
+                  style={{
+                    backgroundColor: "#FFE9EE",
+                    borderRadius: "20px",
+                    overflow: "hidden",
+                    borderColor: "pink",
+                  }}
+                >
                   <div className="circle-bar circle-bar1">
                     <div className="circle-graph1" data-percent="75">
                       <img src={img2} className="img-fluid" alt="patient" />
@@ -85,7 +99,14 @@ const DoctorLanding = () => {
               </Col>
               <Col offset={2}></Col>
               <Col span={4}>
-                <Card>
+                <Card
+                  style={{
+                    backgroundColor: "#E3F7EC",
+                    borderRadius: "20px",
+                    overflow: "hidden",
+                    borderColor: "green",
+                  }}
+                >
                   <div className="circle-bar circle-bar1">
                     <div className="circle-graph1" data-percent="75">
                       <img src={img3} className="img-fluid" alt="patient" />
@@ -103,16 +124,14 @@ const DoctorLanding = () => {
               </Col>
               <Col offset={2}></Col>
               <Col>
-                <Card>
-                  <div>
-                    <UserAddOutlined style={{ fontSize: 30 }} />
-                  </div>
-                  <Link to="/RegisterPatient">
-                    <Button shape="round" type="primary">
-                      Add Patient
-                    </Button>
-                  </Link>
-                </Card>
+                <div>
+                  <UserAddOutlined style={{ fontSize: 30 }} />
+                </div>
+                <Link to="/RegisterPatient">
+                  <Button shape="round" style={{ backgroundColor: "#2DE0FC" }}>
+                    Add Patient
+                  </Button>
+                </Link>
               </Col>
             </Row>
           </Header>

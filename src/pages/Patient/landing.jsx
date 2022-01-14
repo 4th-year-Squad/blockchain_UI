@@ -1,6 +1,6 @@
 import { Carousel, Row, Col, Card } from "antd";
 import { ReactDOM } from "react";
-import HeroImg from "../../assets/images/slide1.jpg";
+import HeroImg from "../../assets/images/phero.png";
 import FooterNew from "../../components/Common/Footer/index.jsx";
 import doc1 from "../../assets/images/doc1.jpg";
 import doc2 from "../../assets/images/doc2.jpg";
@@ -8,15 +8,13 @@ import doc3 from "../../assets/images/doc3.jpg";
 import sp1 from "../../assets/images/speciality/specialities-01.png";
 const { Meta } = Card;
 import "../Patient/style.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 import DoctorsList from "../../components/Doctor/list.jsx";
-
+import { CheckCircleFilled } from "@ant-design/icons";
 const patientLanding = () => {
   return (
     <>
       <div>
-        <img src={HeroImg} alt="" />
+        <img src={HeroImg} alt="" width="100%" />
       </div>
       <div style={{ textAlign: "center", padding: 100 }}>
         <h1 style={{ fontSize: 32 }}>
@@ -24,7 +22,7 @@ const patientLanding = () => {
         </h1>
       </div>
       <div>
-        <Row type="flex" align="middle" style={{ alignSelf: "center" }}>
+        <Row type="flex" style={{ alignItems: "center" }} justify="center">
           <Col flex={8}>
             <div
               style={{
@@ -39,8 +37,8 @@ const patientLanding = () => {
                 cover={<img alt="example" src={doc1} />}
               >
                 <Meta
-                  title="Europe Street beat"
-                  description="www.instagram.com"
+                  title="Doctors"
+                  description="Directly and specialists verified by MOH."
                 />
               </Card>
             </div>
@@ -53,8 +51,8 @@ const patientLanding = () => {
                 cover={<img alt="example" src={doc2} />}
               >
                 <Meta
-                  title="Europe Street beat"
-                  description="www.instagram.com"
+                  title="Prescriptions"
+                  description="Directly given by doctors."
                 />
               </Card>
             </div>
@@ -67,7 +65,7 @@ const patientLanding = () => {
                 cover={<img alt="example" src={doc3} />}
               >
                 <Meta
-                  title="Europe Street beat"
+                  title="University to be part of this system"
                   description="www.instagram.com"
                 />
               </Card>
@@ -84,7 +82,7 @@ const patientLanding = () => {
               <div className="speicality-img">
                 <img src={sp1} className="img-fluid" alt="Speciality" />
                 <span>
-                  <FontAwesomeIcon icon={["fal", "coffee"]} />
+                  <CheckCircleFilled />
                 </span>
               </div>
               <p>Urology</p>
@@ -95,7 +93,7 @@ const patientLanding = () => {
               <div className="speicality-img">
                 <img src={sp1} className="img-fluid" alt="Speciality" />
                 <span>
-                  <i className="fa fa-circle" aria-hidden="true"></i>
+                  <CheckCircleFilled />
                 </span>
               </div>
               <p>Neurology</p>
@@ -106,7 +104,7 @@ const patientLanding = () => {
               <div className="speicality-img">
                 <img src={sp1} className="img-fluid" alt="Speciality" />
                 <span>
-                  <i className="fa fa-circle" aria-hidden="true"></i>
+                  <CheckCircleFilled />
                 </span>
               </div>
               <p>Orthopedic</p>
@@ -117,7 +115,7 @@ const patientLanding = () => {
               <div className="speicality-img">
                 <img src={sp1} className="img-fluid" alt="Speciality" />
                 <span>
-                  <i className="fa fa-circle" aria-hidden="true"></i>
+                  <CheckCircleFilled />
                 </span>
               </div>
               <p>Cardiologist</p>
@@ -128,7 +126,7 @@ const patientLanding = () => {
               <div className="speicality-img">
                 <img src={sp1} className="img-fluid" alt="Speciality" />
                 <span>
-                  <i className="fa fa-circle" aria-hidden="true"></i>
+                  <CheckCircleFilled />
                 </span>
               </div>
               <p>Dentist</p>
@@ -136,9 +134,26 @@ const patientLanding = () => {
           </Col>
         </Row>
         <Row>
-          <Col>
-            <DoctorsList />
-          </Col>
+          <div
+            style={{
+              backgroundColor: "white",
+              width: "100%",
+              textAlign: "center",
+              paddingTop: 50,
+              display: "block",
+            }}
+          >
+            <h1 style={{ fontSize: 32 }}>Our currently available doctors</h1>
+            <h2 style={{ margin: "50px 300px 100px 300px" }}>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Consequatur officia, ratione dicta suscipit sapiente atque vitae
+              eum. Placeat, totam sapiente ab repellendus ea, eos quibusdam iste
+              explicabo eligendi cumque accusamus!
+            </h2>
+            <Col style={{ margin: "10px" }}>
+              <DoctorsList />
+            </Col>
+          </div>
         </Row>
       </div>
       <FooterNew />
