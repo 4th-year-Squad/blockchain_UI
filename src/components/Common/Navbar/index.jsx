@@ -1,4 +1,4 @@
-import { Layout, Menu, Button, Row, Col } from "antd";
+import { Layout, Menu, Button, Row, Col, notification } from "antd";
 import imageSrc from "../../../assets/images/logo.png";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
@@ -15,38 +15,56 @@ const Navbar = () => {
           <img src={imageSrc} width={200} />
         </Col>
         <Col span={10}>
-          <Menu theme="light" mode="horizontal" defaultSelectedKeys={["2"]}>
+          <Menu theme="light" mode="horizontal" defaultSelectedKeys={["0"]}>
             <Menu.Item style={{}} key={0}>
               <Link to="/"> Home</Link>
             </Menu.Item>
-            {cookies["user"] === "patient" || cookies["user"] === "doctor" ? (
-              <Menu.Item style={{}} key={1}>
+            {cookies["user"] === "patient" ? (
+              <Menu.Item key={1}>
                 <Link to="/patient"> Patients</Link>
               </Menu.Item>
+            ) : cookies["user"] === "moh" ? (
+              <>
+                <Menu.Item style={{}} key={3}>
+                  <Link to="/moh"> MOH</Link>
+                </Menu.Item>
+              </>
+            ) : cookies["user"] === "univeristy" ? (
+              <>
+                <Menu.Item style={{}} key={4}>
+                  <Link to="/univesities">Universities</Link>
+                </Menu.Item>
+                <Menu.Item style={{}} key={2}>
+                  <Link to="/DoctorsList">Doctors</Link>
+                </Menu.Item>
+              </>
+            ) : cookies["user"] === "doctor" ? (
+              <>
+                <Menu.Item key={1}>
+                  <Link to="/patient"> Patients</Link>
+                </Menu.Item>
+                <Menu.Item style={{}} key={2}>
+                  <Link to={`/doctor/${cookies["userId"]}`}>My Dashboard</Link>
+                </Menu.Item>
+              </>
             ) : (
               ""
             )}
-
-            <Menu.Item style={{}} key={2}>
-              <Link to="/doctor"> Doctors</Link>
-            </Menu.Item>
-            <Menu.Item style={{}} key={3}>
-              <Link to="/moh"> MOH</Link>
-            </Menu.Item>
-            <Menu.Item style={{}} key={4}>
-              <Link to="/univesities">Universities</Link>
-            </Menu.Item>
           </Menu>
         </Col>
         <Col span={4}>
           <Menu theme="light" mode="horizontal" defaultSelectedKeys={["2"]}>
-            <Menu.Item style={{}} key={4}>
-              <Link to="/RegisterPatient">
-                <Button shape="round" style={{ borderColor: "#2BF1C3" }}>
-                  Register as a patient
-                </Button>
-              </Link>
-            </Menu.Item>
+            {cookies["hasAccount"] === "false" ? (
+              <Menu.Item style={{}} key={4}>
+                <Link to="/RegisterPatient">
+                  <Button shape="round" style={{ borderColor: "#2BF1C3" }}>
+                    Register as a patient
+                  </Button>
+                </Link>
+              </Menu.Item>
+            ) : (
+              ""
+            )}
           </Menu>
         </Col>
       </Row>

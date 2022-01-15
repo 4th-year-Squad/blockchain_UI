@@ -43,7 +43,8 @@ const App = () => {
             ></Route>
             <Route exact path="/patient" component={patientLanding}></Route>
             <Route exact path="/" component={Home}></Route>
-            <Route path="/doctor" component={DoctorLanding}></Route>
+            {/* <Route path="/doctor" component={DoctorLanding}></Route> */}
+            <Route exact path={"/doctor/:id"} component={DoctorLanding}></Route>
             <Route path="/moh" component={MOHLanding}></Route>
             <Route path="/univesities" component={UniversityLanding}></Route>
           </Switch>

@@ -1,5 +1,4 @@
-import { Carousel, Row, Col, Card } from "antd";
-import { ReactDOM } from "react";
+import { Carousel, Row, Col, Card, notification } from "antd";
 import HeroImg from "../../assets/images/home.png";
 import FooterNew from "../../components/Common/Footer/index.jsx";
 
@@ -12,10 +11,23 @@ import sp2 from "../../assets/images/speciality/specialities-02.png";
 import sp3 from "../../assets/images/speciality/specialities-03.png";
 import sp4 from "../../assets/images/speciality/specialities-04.png";
 import sp5 from "../../assets/images/speciality/specialities-05.png";
-const { Meta } = Card;
 import "../Patient/style.css";
 import { CheckCircleFilled } from "@ant-design/icons";
+import { useCookies } from "react-cookie";
+
+const { Meta } = Card;
 const Home = () => {
+  const [cookies, setCookies] = useCookies();
+  const hasAccount = cookies["hasAccount"];
+
+  // {
+  //   hasAccount === "false"
+  //     ? notification.error({
+  //         message:
+  //           "We recognized that you haven't registered in our website! If you are a patient please register as patient or if you are a doctor please contact your univeristy!",
+  //       })
+  //     : "";
+  // }
   return (
     <>
       <div>

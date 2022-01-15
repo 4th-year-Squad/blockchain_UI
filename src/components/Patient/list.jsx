@@ -6,6 +6,7 @@ import { Web3Context } from "../Web3Context";
 import { Redirect } from "react-router";
 import { CheckCircleTwoTone } from "@ant-design/icons";
 import profile from "../../assets/images/profile.png";
+import { useCookies } from "react-cookie";
 const { Meta } = Card;
 
 const fakeDataUrl =
@@ -14,6 +15,7 @@ const ContainerHeight = 700;
 
 const PatientList = () => {
   const web3 = useContext(Web3Context);
+  const [cookies, setCookies] = useCookies();
   const [loading, setloading] = useState(true);
   const [data, setData] = useState([]);
   const [selectedPatient, setselectedPatient] = useState();
@@ -148,7 +150,7 @@ const PatientList = () => {
           {selectedPatient ? (
             <>
               <Card
-                style={{ width: 500, marginLeft: 100 }}
+                style={{ width: 450, marginLeft: 100 }}
                 cover={<img width="100px" alt="example" src={profile} />}
               >
                 <div style={{ fontSize: 18 }}>
@@ -192,15 +194,28 @@ const PatientList = () => {
                     ))}
                   </span>
                 </div>
-
-                <Button
-                  shape="round"
-                  style={{ padding: 5, margin: "20px", borderColor: "#2DE0FC" }}
-                  onClick={() => setModal(true)}
-                >
-                  Add Patient History
-                </Button>
+                {cookies["user"] === "doctor" &&
+                cookies["isVerified"] === "true" ? (
+                  <Button
+                    shape="round"
+                    style={{
+                      backgroundColor: "#2DE0FC",
+                      padding: "10",
+                      margin: "20px",
+                      borderColor: "#2DE0FC",
+                      position: "absolute",
+                      right: 0,
+                      top: 0,
+                    }}
+                    onClick={() => setModal(true)}
+                  >
+                    Add Patient History
+                  </Button>
+                ) : (
+                  ""
+                )}
               </Card>
+
               <AddHistory
                 isOpen={isModalOpen}
                 onClose={() => setModal(false)}

@@ -52,6 +52,7 @@ contract MedicalChain{
         string d_speciality;
         uint d_date_of_birth;
         address universities;
+        uint dr_row;
     }
     
     struct Patient{
@@ -87,8 +88,8 @@ contract MedicalChain{
     // Function to add Doctor details, done by admin only
     function setDoctorDetails(address _drId,string memory _name,string memory _phone_Number,string memory _speciality, uint _date_of_birth) public  {
         doctorCount += 1;
-        DoctorInfo[_drId] = Doctor(false,_drId,_name,_phone_Number,_speciality,_date_of_birth,msg.sender);
-        DoctorList[doctorCount] = Doctor(false,_drId,_name,_phone_Number,_speciality,_date_of_birth,msg.sender);
+        DoctorInfo[_drId] = Doctor(false,_drId,_name,_phone_Number,_speciality,_date_of_birth,msg.sender, doctorCount);
+        DoctorList[doctorCount] = Doctor(false,_drId,_name,_phone_Number,_speciality,_date_of_birth,msg.sender, doctorCount);
 
         emit DrDetailsAdded(msg.sender, _drId);
     }
@@ -250,6 +251,7 @@ contract MedicalChain{
 
     function updateDoctorState(address dr_Id, bool state) public returns(bool _state){
        DoctorInfo[dr_Id].state = state;
+       DoctorList[DoctorInfo[dr_Id].dr_row].state = state;
        return(
            true
        );

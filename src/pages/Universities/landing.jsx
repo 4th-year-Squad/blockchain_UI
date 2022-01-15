@@ -20,14 +20,26 @@ const UniversityLanding = () => {
         <img src={HeroImg} alt="" />
       </div>
       <Link to="/RegisterDoctor">
-        <div style={{ fontSize: 30 }}>
-          <Button shape="round"  size="large" type="primary">
+        <div
+          style={{
+            fontSize: 30,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "100px",
+          }}
+        >
+          <Button
+            shape="round"
+            size="large"
+            style={{ backgroundColor: "#2DE0FC" }}
+          >
             Add Doctors
           </Button>
         </div>
       </Link>
       <div style={{ textAlign: "center", padding: 100 }}>
-        <h1>What are you looking for? </h1>
+        <h1>Register your Doctors</h1>
       </div>
       <div>
         <Row type="flex" align="middle" style={{ alignSelf: "center" }}>
@@ -58,10 +70,7 @@ const UniversityLanding = () => {
                 style={{ width: 500 }}
                 cover={<img alt="example" src={doc2} />}
               >
-                <Meta
-                  title="Prescriptions"
-                  description="Directly given by doctors."
-                />
+                <Meta title="specialists" description="" />
               </Card>
             </div>
           </Col>
@@ -72,10 +81,7 @@ const UniversityLanding = () => {
                 style={{ width: 500 }}
                 cover={<img alt="example" src={doc3} />}
               >
-                <Meta
-                  title="University to be part of this system"
-                  description="www.instagram.com"
-                />
+                <Meta title="Doctors" description="www.instagram.com" />
               </Card>
             </div>
           </Col>

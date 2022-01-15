@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import {
   List,
   message,
-  Avatar,
+  Popconfirm,
   Button,
   Divider,
   Row,
@@ -12,8 +12,10 @@ import {
   notification,
 } from "antd";
 import VirtualList from "rc-virtual-list";
-const { Meta } = Card;
 import { Web3Context } from "../Web3Context";
+import { useCookies } from "react-cookie";
+
+const { Meta } = Card;
 
 const ContainerHeight = 700;
 
@@ -23,12 +25,15 @@ const DoctorsList = () => {
   const [data, setData] = useState([]);
   const [selectedDoctor, setselectedDoctor] = useState(null);
   const [isModalOpen, setModal] = useState(false);
+  const [cookies, setCookies] = useCookies();
 
   const appendData = async () => {
     setloading(true);
     const web3Instance = await web3();
     const doctorCount = await web3Instance.medify.methods.doctorCount().call();
+
     const doctors = [];
+    console.log(doctorCount, "ajsda");
     for (let i = 1; i <= doctorCount; i++) {
       let doctor = await web3Instance.medify.methods.DoctorList(i).call();
       doctor.university = await web3Instance.medify.methods
@@ -55,7 +60,23 @@ const DoctorsList = () => {
       appendData();
     }
   };
+  const text = "Are you sure to change doctor's state";
 
+  async function confirm() {
+    setloading(true);
+    const web3Instance = await web3();
+    console.log(selectedDoctor.dr_Id, !selectedDoctor.state);
+    await web3Instance.medify.methods
+      .updateDoctorState(selectedDoctor.dr_Id, !selectedDoctor.state)
+      .send({ from: "0x12987F47574D86565532Ed272C0d08E7C3550c65" })
+      .once("receipt", (receipt) => {
+        window.location.reload();
+        setloading(false);
+        notification.success({ message: "Doctor state updated!" });
+      });
+
+    message.info("Clicked on Yes.");
+  }
   return (
     <>
       <Row>
@@ -117,7 +138,7 @@ const DoctorsList = () => {
                               }
                         }
                       >
-                        {item.state ? "verified " : "Not-Verified "}
+                        {item.state ? "Verified " : "Not-Verified "}
                       </div>
                       <Button
                         shape="round"
@@ -139,11 +160,11 @@ const DoctorsList = () => {
         <Col span={6}>
           {selectedDoctor ? (
             <Card
-              style={{ width: 500, margin: 100 }}
+              style={{ width: 400, margin: 100 }}
               cover={
                 <img
                   alt="example"
-                  src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                  src="https://d29fhpw069ctt2.cloudfront.net/icon/image/59461/preview.svg"
                 />
               }
             >
@@ -163,6 +184,34 @@ const DoctorsList = () => {
                 <span style={{ color: "#09E5AB" }}>Phone Number: </span>
                 <span>{`${selectedDoctor.d_phone_Number}`}</span>
               </div>
+              {cookies["user"] === "moh" ? (
+                <Popconfirm
+                  placement="topLeft"
+                  title={text}
+                  onConfirm={confirm}
+                  okText="Yes"
+                  cancelText="No"
+                >
+                  <Button
+                    shape="round"
+                    style={{
+                      backgroundColor: "#2DE0FC",
+                      padding: "10",
+                      margin: "20px",
+                      borderColor: "#2DE0FC",
+                      position: "absolute",
+                      right: 0,
+                      top: 0,
+                    }}
+                  >
+                    {cookies["isVerified"] === "false"
+                      ? "Verify Doctor"
+                      : "Revoke certificate"}
+                  </Button>
+                </Popconfirm>
+              ) : (
+                ""
+              )}
             </Card>
           ) : (
             <Card

@@ -1,4 +1,13 @@
-import { Form, Input, Button, Select, Row, Col, message } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  Select,
+  Row,
+  Col,
+  message,
+  notification,
+} from "antd";
 import imageRegister from "../../assets/images/univ.png";
 import { Web3Context } from "../Web3Context.js";
 import { useEffect, useState, useContext } from "react";
@@ -26,9 +35,9 @@ const RegisterUniversity = () => {
       .send({ from: account[0] })
       .once("receipt", (receipt) => {
         setLoading(false);
-        message.success(
-          `University Regisetered Successfully! Transaction hash: ${receipt.transactionHash}`
-        );
+        notification.success({
+          message: `University Regisetered Successfully! Transaction hash: ${receipt.transactionHash}`,
+        });
         setRedirect("/moh");
       });
   };
@@ -130,7 +139,7 @@ const RegisterUniversity = () => {
               </Form.Item>
 
               <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                <Button type="primary" htmlType="submit">
+                <Button loading={loading} type="primary" htmlType="submit">
                   Submit
                 </Button>
               </Form.Item>
